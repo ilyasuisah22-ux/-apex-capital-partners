@@ -1,0 +1,2 @@
+"use client";
+export default function Error({ reset }: { error: Error & { digest?: string }; reset: () => void }){ return <div className="system-page dark-section"><p className="eyebrow text-brass">Something interrupted the page</p><h1>We could not complete that request.</h1><p>Please try again. No inquiry or information was submitted by this error.</p><button className="button brass" onClick={reset}>Try again</button></div>; }

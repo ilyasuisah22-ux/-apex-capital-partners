@@ -1,0 +1,2 @@
+import type { MetadataRoute } from "next"; import { SITE_URL } from "@/lib/constants";
+export default function sitemap(): MetadataRoute.Sitemap { const routes=["","/about","/services","/citizenship","/services/property-investment","/services/travel-assistance","/services/tourist-visa","/services/hotel-accommodation","/media","/contact"]; return routes.map((route)=>({url:`${SITE_URL}${route}`,lastModified:new Date(),changeFrequency:"monthly",priority:route===""?1:0.7})); }

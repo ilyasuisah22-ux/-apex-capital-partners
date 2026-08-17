@@ -1,0 +1,7 @@
+import type { Service } from "@/lib/constants";
+import { ContactCta } from "@/components/sections/contact-cta";
+import { Eyebrow, PageHero } from "@/components/ui/primitives";
+
+export function ServiceDetail({ service, title }: { service: Service; title: string }) {
+  return <><PageHero eyebrow={service.eyebrow} title={title} intro={service.summary} index={service.accent} /><section className={`light-section detail-section accent-${service.accent} composition-${service.composition}`}><div className="shell detail-grid"><div><Eyebrow>The service</Eyebrow><h2>{service.detailHeading}</h2></div><div><p className="lead">{service.description}</p><div className="service-boundary"><span>Scope boundary</span><p>{service.boundary}</p></div></div></div></section><section className={`process-section process-${service.composition}`}><div className="shell"><div className="process-heading"><div><Eyebrow>Initial process</Eyebrow><h2>{service.composition === "evaluation" ? "An evaluation framework." : service.composition === "itinerary" ? "An itinerary in sequence." : service.composition === "checklist" ? "A readiness check." : service.composition === "stay" ? "From preference to arrival." : "Three measured steps."}</h2></div><span className="composition-mark" aria-hidden="true">{service.accent}</span></div><div className="process-grid">{service.steps.map((step, index) => <article key={step.title}><span>0{index + 1}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}</div></div></section><ContactCta /></>;
+}
