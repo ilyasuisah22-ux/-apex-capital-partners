@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getAdminContext } from "@/lib/supabase/auth";
 import { deleteFromSupabaseStorage } from "@/lib/supabase/storage";
 
@@ -12,5 +13,7 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
   try { await deleteFromSupabaseStorage(data.storage_path); } catch (error) { console.error("Supabase Storage delete failed", error); return NextResponse.json({ error: "Media could not be deleted from storage." }, { status: 502 }); }
   const { error } = await supabase.from("media").delete().eq("id", id);
   if (error) return NextResponse.json({ error: "Storage was updated, but the media record could not be removed. Contact support before retrying." }, { status: 500 });
+  revalidatePath("/", "page");
+  revalidatePath("/media", "page");
   return NextResponse.json({ ok: true });
 }

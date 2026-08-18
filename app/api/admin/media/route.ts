@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getAdminContext } from "@/lib/supabase/auth";
 import { deleteFromSupabaseStorage, uploadToSupabaseStorage } from "@/lib/supabase/storage";
 import { mediaLimitReached, validateMediaFile } from "@/lib/validation";
@@ -30,7 +31,9 @@ export async function POST(request: Request) {
     const publicUrl = await uploadToSupabaseStorage(key, new Uint8Array(await file.arrayBuffer()), file.type);
     const { data, error } = await supabase.from("media").insert({ file_name: safeName, original_file_name: file.name, media_type: validation.mediaType, storage_path: key, public_url: publicUrl, file_size: file.size, mime_type: file.type }).select("*").single();
     if (error || !data) { try { await deleteFromSupabaseStorage(key); } catch (cleanupError) { console.error("Supabase Storage cleanup failed", cleanupError); } return NextResponse.json({ error: "Upload could not be completed." }, { status: 500 }); }
-    return NextResponse.json({ media: data }, { status: 201 });
+     revalidatePath("/", "page");
+     revalidatePath("/media", "page");
+     return NextResponse.json({ media: data }, { status: 201 });
   } catch (error) {
     console.error("Media upload failed", error);
     return NextResponse.json({ error: "Upload failed. Check storage configuration and try again." }, { status: 500 });
