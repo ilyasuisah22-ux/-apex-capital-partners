@@ -3,10 +3,10 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:30
 export const company = {
   name: "Apex Capital Partners",
   strapline: "Boutique Investment Advisory",
-  phone: "+869 661 3887",
+  phone: "+1 869 661 3887",
   email: "ApexCapitalPartners.Hmt@gmail.com",
   location: "Saint Kitts and Nevis, Caribbean",
-  whatsapp: ["+869 661 3887", "+234 803 847 2265", "+234 805 035 4644"],
+  whatsapp: ["+1 869 661 3887", "+234 803 847 2265", "+234 805 035 4644"],
 } as const;
 
 export const navigation = [
