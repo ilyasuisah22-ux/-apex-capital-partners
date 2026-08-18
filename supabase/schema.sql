@@ -1,5 +1,5 @@
 -- Apex Capital Partners Phase 2 schema.
--- Run this in the Supabase SQL Editor before adding the first admin user.
+-- Run this file in the Supabase SQL Editor before adding the first admin user.
 
 create extension if not exists pgcrypto;
 
