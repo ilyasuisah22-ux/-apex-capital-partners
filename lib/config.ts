@@ -6,12 +6,6 @@ const publicSchema = z.object({
 });
 
 const serverSchema = publicSchema.extend({
-  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
-  R2_ACCOUNT_ID: z.string().min(1).optional(),
-  R2_ACCESS_KEY_ID: z.string().min(1).optional(),
-  R2_SECRET_ACCESS_KEY: z.string().min(1).optional(),
-  R2_BUCKET_NAME: z.string().min(1).optional(),
-  R2_PUBLIC_BASE_URL: z.string().url().optional(),
   RESEND_API_KEY: z.string().min(1).optional(),
   RESEND_FROM_EMAIL: z.string().min(1).optional(),
 });
@@ -42,9 +36,4 @@ export function requireServerEnv() {
 
 export function isBackendConfigured() {
   return getPublicEnv() !== null;
-}
-
-export function isR2Configured() {
-  const env = getServerEnv();
-  return Boolean(env?.R2_ACCOUNT_ID && env.R2_ACCESS_KEY_ID && env.R2_SECRET_ACCESS_KEY && env.R2_BUCKET_NAME && env.R2_PUBLIC_BASE_URL);
 }

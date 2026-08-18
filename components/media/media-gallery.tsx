@@ -12,11 +12,13 @@ export function VideoCard({ item }: { item: MediaRecord | PublicMedia }) {
 }
 
 export function ImageGallery({ items = mediaRecords.filter((item) => item.type === "image") }: { items?: readonly (MediaRecord | PublicMedia)[] }) {
-  return <div className="image-gallery">{items.filter((item) => item.type === "image").map((item) => <MediaCard key={item.id} item={item} />)}</div>;
+  const images = items.filter((item) => item.type === "image");
+  return images.length ? <div className="image-gallery">{images.map((item) => <MediaCard key={item.id} item={item} />)}</div> : <p className="media-empty">New image perspectives are being prepared.</p>;
 }
 
 export function VideoGallery({ items = mediaRecords.filter((item) => item.type === "video") }: { items?: readonly (MediaRecord | PublicMedia)[] }) {
-  return <div className="video-gallery">{items.filter((item) => item.type === "video").map((item) => <VideoCard key={item.id} item={item} />)}</div>;
+  const videos = items.filter((item) => item.type === "video");
+  return videos.length ? <div className="video-gallery">{videos.map((item) => <VideoCard key={item.id} item={item} />)}</div> : <p className="media-empty">New presentations are being prepared.</p>;
 }
 
 export function MediaGallery({ items = mediaRecords }: { items?: readonly (MediaRecord | PublicMedia)[] }) {

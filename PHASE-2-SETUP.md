@@ -15,11 +15,6 @@ Required public Supabase values:
 - `NEXT_PUBLIC_SUPABASE_URL`: Supabase Project Settings > API > Project URL
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase Project Settings > API > Publishable/anon key
 
-Required server values for media:
-
-- `SUPABASE_SERVICE_ROLE_KEY` is reserved for future trusted maintenance jobs. The current request handlers use the authenticated Supabase session and RLS; do not expose this key to the browser.
-- `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, and `R2_PUBLIC_BASE_URL` are required for uploads.
-
 Optional notification values:
 
 - `RESEND_API_KEY` and `RESEND_FROM_EMAIL` enable inquiry email notifications. Without them, inquiries still save to Supabase, but no email is sent.
@@ -40,28 +35,13 @@ on conflict (user_id) do nothing;
 
 The `admin_users` allowlist is required. A normal authenticated Supabase user is not automatically an administrator.
 
-## 3. Cloudflare R2
+## 3. Supabase Storage
 
-1. In Cloudflare Dashboard, open R2 Object Storage and create a bucket named `apex-capital-media` or another private name.
-2. Create an R2 API token scoped only to this bucket with Object Read & Write permission. Copy the Access Key ID and Secret Access Key into `.env.local`; never paste them into source files or chat.
-3. Configure a custom public domain for the bucket, for example `media.your-domain.example`, and set `R2_PUBLIC_BASE_URL` to that HTTPS URL without a trailing slash.
-4. Add this CORS policy to the R2 bucket if browser media previews need cross-origin access:
+1. Open the Supabase SQL Editor.
+2. Run the complete `supabase/schema.sql` file. It creates the public `apex-media` bucket, allowed MIME types, the 100 MB object limit, and storage policies.
+3. The server uploads and deletes through the authenticated Supabase Storage API. No separate storage secret is required for the current flow.
 
-```json
-[
-  {
-    "AllowedOrigins": ["http://localhost:3000"],
-    "AllowedMethods": ["GET", "HEAD"],
-    "AllowedHeaders": ["*"],
-    "ExposeHeaders": ["ETag"],
-    "MaxAgeSeconds": 3600
-  }
-]
-```
-
-Add the eventual website origin to `AllowedOrigins` before Phase 3 deployment. Do not use `*` for a production bucket.
-
-The server uploads and deletes through the R2 S3-compatible API. The browser never receives the R2 secret keys.
+The bucket is public-read so the public website can render active media. Upload, update, and delete require both a signed-in user and a matching row in `public.admin_users`.
 
 ## 4. Resend
 

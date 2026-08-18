@@ -3,8 +3,14 @@
 
 create extension if not exists pgcrypto;
 
-create type public.media_type as enum ('image', 'video');
-create type public.inquiry_status as enum ('new', 'contacted', 'in_progress', 'completed', 'archived');
+do $$ begin
+  create type public.media_type as enum ('image', 'video');
+exception when duplicate_object then null;
+end $$;
+do $$ begin
+  create type public.inquiry_status as enum ('new', 'contacted', 'in_progress', 'completed', 'archived');
+exception when duplicate_object then null;
+end $$;
 
 create table if not exists public.admin_users (
   user_id uuid primary key references auth.users(id) on delete cascade,
@@ -28,13 +34,23 @@ create table if not exists public.media (
   file_name text not null,
   original_file_name text not null,
   media_type public.media_type not null,
-  storage_key text not null unique,
+  storage_path text not null unique,
   public_url text not null,
   file_size bigint not null check (file_size > 0),
   mime_type text not null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Idempotent migration for projects that ran the earlier storage schema.
+do $$
+begin
+  if exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'media' and column_name = 'storage_key')
+    and not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'media' and column_name = 'storage_path') then
+    alter table public.media rename column storage_key to storage_path;
+  end if;
+end;
+$$;
 
 create table if not exists public.inquiries (
   id uuid primary key default gen_random_uuid(),
@@ -118,6 +134,21 @@ grant insert on table public.inquiries to anon;
 grant select, insert, update, delete on table public.media to authenticated;
 grant select, insert, update on table public.inquiries to authenticated;
 revoke all on table public.admin_users from anon, authenticated;
+
+-- Supabase Storage bucket and policies. Files are public-read because the
+-- public website must render active media without exposing credentials.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('apex-media', 'apex-media', true, 104857600, array['image/jpeg', 'image/png', 'image/webp', 'video/mp4', 'video/webm'])
+on conflict (id) do update set public = excluded.public, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "Public can view Apex media" on storage.objects;
+create policy "Public can view Apex media" on storage.objects for select using (bucket_id = 'apex-media');
+drop policy if exists "Admins can upload Apex media" on storage.objects;
+create policy "Admins can upload Apex media" on storage.objects for insert to authenticated with check (bucket_id = 'apex-media' and public.is_admin());
+drop policy if exists "Admins can update Apex media" on storage.objects;
+create policy "Admins can update Apex media" on storage.objects for update to authenticated using (bucket_id = 'apex-media' and public.is_admin()) with check (bucket_id = 'apex-media' and public.is_admin());
+drop policy if exists "Admins can delete Apex media" on storage.objects;
+create policy "Admins can delete Apex media" on storage.objects for delete to authenticated using (bucket_id = 'apex-media' and public.is_admin());
 
 -- Create the owner in Supabase Dashboard > Authentication > Users.
 -- Never put a password in this file or in Git.
