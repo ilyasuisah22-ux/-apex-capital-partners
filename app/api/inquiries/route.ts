@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     const { data, error } = await supabase.from("inquiries").insert({ full_name: parsed.data.name, email: parsed.data.email, phone: parsed.data.phone, country: parsed.data.country, service: parsed.data.service, number_of_applicants: parsed.data.applicants, message: parsed.data.message }).select("id").single();
     if (error || !data) return NextResponse.json({ error: "We could not save your inquiry. Please try again." }, { status: 500 });
     recentSubmissions.set(ip, Date.now());
-    try { await sendInquiryNotification(parsed.data); } catch (emailError) { console.error("Inquiry email notification failed", emailError); }
+    try { const notification = await sendInquiryNotification(parsed.data); if (!notification.sent) console.warn("Inquiry saved without email notification:", notification.reason); } catch (emailError) { console.error("Inquiry email notification failed", emailError); }
     return NextResponse.json({ ok: true, id: data.id });
   } catch (error) {
     console.error("Inquiry submission failed", error);

@@ -6,6 +6,7 @@ const publicSchema = z.object({
 });
 
 const serverSchema = publicSchema.extend({
+  NOTIFICATION_EMAIL: z.string().email().optional(),
   RESEND_API_KEY: z.string().min(1).optional(),
   RESEND_FROM_EMAIL: z.string().min(1).optional(),
 });

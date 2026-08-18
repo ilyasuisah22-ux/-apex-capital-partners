@@ -17,7 +17,9 @@ Required public Supabase values:
 
 Optional notification values:
 
+- `NOTIFICATION_EMAIL` controls where inquiry notifications are delivered. It defaults to `ApexCapitalPartners.Hmt@gmail.com` when omitted.
 - `RESEND_API_KEY` and `RESEND_FROM_EMAIL` enable inquiry email notifications. Without them, inquiries still save to Supabase, but no email is sent.
+- Development Resend configuration: `NOTIFICATION_EMAIL=ilyasuisah22@gmail.com` and `RESEND_FROM_EMAIL=Apex Capital Partners <onboarding@resend.dev>`.
 
 ## 2. Supabase
 
