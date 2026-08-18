@@ -5,3 +5,4 @@ out
 !.env.example
 npm-debug.log*
 *.tsbuildinfo
+phase2-admin-login.png

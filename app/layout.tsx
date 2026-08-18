@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { WhatsAppButton } from "@/components/layout/whatsapp-button";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
@@ -17,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body className={`${serif.variable} ${sans.variable}`}><a className="skip-link" href="#main-content">Skip to content</a><Header /><main id="main-content">{children}</main><Footer /><WhatsAppButton /></body></html>;
+  return <html lang="en"><body className={`${serif.variable} ${sans.variable}`}><SiteChrome>{children}</SiteChrome></body></html>;
 }
