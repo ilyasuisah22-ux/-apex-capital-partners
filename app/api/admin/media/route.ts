@@ -4,6 +4,7 @@ import { getAdminContext } from "@/lib/supabase/auth";
 import { deleteFromSupabaseStorage, uploadToSupabaseStorage } from "@/lib/supabase/storage";
 import { mediaLimitReached, validateMediaFile } from "@/lib/validation";
 import { randomUUID } from "node:crypto";
+import { convertImageToWebP, optimizedImageMimeType } from "@/lib/media-conversion";
 
 export async function GET() {
   const { supabase, isAdmin } = await getAdminContext();
@@ -27,9 +28,14 @@ export async function POST(request: Request) {
     const { count } = await supabase.from("media").select("id", { count: "exact", head: true }).eq("media_type", validation.mediaType);
     if (mediaLimitReached(validation.mediaType, count ?? 0)) return NextResponse.json({ error: `Maximum number of ${validation.mediaType}s reached. Delete an existing ${validation.mediaType} before uploading another.` }, { status: 409 });
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
-    const key = `${validation.mediaType}s/${randomUUID()}-${safeName}`;
-    const publicUrl = await uploadToSupabaseStorage(key, new Uint8Array(await file.arrayBuffer()), file.type);
-    const { data, error } = await supabase.from("media").insert({ file_name: safeName, original_file_name: file.name, media_type: validation.mediaType, storage_path: key, public_url: publicUrl, file_size: file.size, mime_type: file.type }).select("*").single();
+    const sourceBytes = new Uint8Array(await file.arrayBuffer());
+    const isImage = validation.mediaType === "image";
+    const uploadBytes = isImage ? await convertImageToWebP(sourceBytes) : sourceBytes;
+    const uploadMimeType = isImage ? optimizedImageMimeType : file.type;
+    const uploadName = isImage ? `${safeName.replace(/\.[^.]+$/, "") || "image"}.webp` : safeName;
+    const key = `${validation.mediaType}s/${randomUUID()}-${uploadName}`;
+    const publicUrl = await uploadToSupabaseStorage(key, uploadBytes, uploadMimeType);
+    const { data, error } = await supabase.from("media").insert({ file_name: uploadName, original_file_name: file.name, media_type: validation.mediaType, storage_path: key, public_url: publicUrl, file_size: uploadBytes.byteLength, mime_type: uploadMimeType }).select("*").single();
     if (error || !data) { try { await deleteFromSupabaseStorage(key); } catch (cleanupError) { console.error("Supabase Storage cleanup failed", cleanupError); } return NextResponse.json({ error: "Upload could not be completed." }, { status: 500 }); }
      revalidatePath("/", "page");
      revalidatePath("/media", "page");
