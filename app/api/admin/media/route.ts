@@ -27,12 +27,15 @@ export async function POST(request: Request) {
     if (!validation.ok) return NextResponse.json({ error: validation.message }, { status: 400 });
     const { count } = await supabase.from("media").select("id", { count: "exact", head: true }).eq("media_type", validation.mediaType);
     if (mediaLimitReached(validation.mediaType, count ?? 0)) return NextResponse.json({ error: `Maximum number of ${validation.mediaType}s reached. Delete an existing ${validation.mediaType} before uploading another.` }, { status: 409 });
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
+    const requestedName = String(form.get("name") ?? "").trim();
+    const sourceName = requestedName || file.name;
+    const safeStem = sourceName.replace(/\.[^.]+$/, "").replace(/[^a-zA-Z0-9_-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "").slice(0, 80) || "media";
     const sourceBytes = new Uint8Array(await file.arrayBuffer());
     const isImage = validation.mediaType === "image";
     const uploadBytes = isImage ? await convertImageToWebP(sourceBytes) : sourceBytes;
     const uploadMimeType = isImage ? optimizedImageMimeType : file.type;
-    const uploadName = isImage ? `${safeName.replace(/\.[^.]+$/, "") || "image"}.webp` : safeName;
+    const uploadExtension = isImage ? "webp" : file.type === "video/webm" ? "webm" : "mp4";
+    const uploadName = `${safeStem}.${uploadExtension}`;
     const key = `${validation.mediaType}s/${randomUUID()}-${uploadName}`;
     const publicUrl = await uploadToSupabaseStorage(key, uploadBytes, uploadMimeType);
     const { data, error } = await supabase.from("media").insert({ file_name: uploadName, original_file_name: file.name, media_type: validation.mediaType, storage_path: key, public_url: publicUrl, file_size: uploadBytes.byteLength, mime_type: uploadMimeType }).select("*").single();
