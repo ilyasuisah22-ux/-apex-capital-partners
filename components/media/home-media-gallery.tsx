@@ -44,8 +44,7 @@ export function HomeMediaGallery({ items }: { items: readonly GalleryItem[] }) {
         return <article className="home-image-tile" key={item.id}>
           {imageUrl ? <button type="button" onClick={() => setActiveImage(index)} aria-label={`Open ${item.title}`}>
             <img src={imageUrl} alt={item.title} />
-            <span className="home-image-caption"><strong>{item.title}</strong><small>{item.category}</small></span>
-          </button> : <div className={`media-art motif-${item.motif}`} role="img" aria-label={`Abstract placeholder for ${item.title}`}><span>{item.id.toUpperCase()}</span><div className="home-image-caption"><strong>{item.title}</strong><small>{item.category}</small></div></div>}
+          </button> : <div className={`media-art motif-${item.motif}`} role="img" aria-label={`Abstract placeholder for ${item.title}`} />}
         </article>;
       })}
     </div>}
