@@ -8,7 +8,8 @@ export function MediaCard({ item }: { item: MediaRecord | PublicMedia }) {
 }
 
 export function VideoCard({ item }: { item: MediaRecord | PublicMedia }) {
-  return <article className="video-card"><div className={`media-art motif-${item.motif}`} aria-hidden="true">{"public_url" in item && item.public_url ? <video src={item.public_url} autoPlay muted loop playsInline preload="metadata" /> : <><span className="play"><PlayIcon className="size-6" /></span><small>Preview only</small></>}</div><p className="eyebrow text-brass">{item.category}</p><h3>{item.title}</h3><p>{item.description}{!("public_url" in item && item.public_url) && " No playable media is currently attached."}</p></article>;
+  const hasVideo = "public_url" in item && item.public_url;
+  return <article className="video-card"><div className={`media-art motif-${item.motif} ${hasVideo ? "media-art-video" : ""}`} aria-hidden="true">{hasVideo ? <video src={item.public_url} autoPlay muted loop playsInline preload="metadata" /> : <><span className="play"><PlayIcon className="size-6" /></span><small>Preview only</small></>}</div><p className="eyebrow text-brass">{item.category}</p><h3>{item.title}</h3><p>{item.description}{!hasVideo && " No playable media is currently attached."}</p></article>;
 }
 
 export function ImageGallery({ items = mediaRecords.filter((item) => item.type === "image") }: { items?: readonly (MediaRecord | PublicMedia)[] }) {
