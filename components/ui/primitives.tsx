@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "./icons";
+import { Globe } from "./globe";
 
 export function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return <p className={`eyebrow ${dark ? "text-brass" : "text-ink/60"}`}>{children}</p>;
@@ -14,5 +15,6 @@ export function PageHero({ eyebrow, title, intro, index }: { eyebrow: string; ti
 }
 
 export function Atlas({ compact = false }: { compact?: boolean }) {
-  return <div className={`atlas ${compact ? "atlas-compact" : ""}`} aria-hidden="true"><div className="atlas-ring ring-one" /><div className="atlas-ring ring-two" /><div className="atlas-ring ring-three" /><div className="atlas-axis axis-a" /><div className="atlas-axis axis-b" /><span className="atlas-dot dot-a" /><span className="atlas-dot dot-b" /><span className="atlas-dot dot-c" /><div className="atlas-label"><small>15.18 N</small><strong>SKN</strong><small>62.58 W</small></div></div>;
+  if (!compact) return <Globe />;
+  return <div className="atlas atlas-compact" aria-hidden="true"><div className="atlas-ring ring-one" /><div className="atlas-ring ring-two" /><div className="atlas-ring ring-three" /><div className="atlas-axis axis-a" /><div className="atlas-axis axis-b" /><span className="atlas-dot dot-a" /><span className="atlas-dot dot-b" /><span className="atlas-dot dot-c" /><div className="atlas-label"><small>15.18 N</small><strong>SKN</strong><small>62.58 W</small></div></div>;
 }
