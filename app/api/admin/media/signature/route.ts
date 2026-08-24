@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     const limit = body.mediaType === "image" ? MAX_IMAGES : MAX_VIDEOS;
     if ((count ?? 0) >= limit) return NextResponse.json({ error: `Maximum number of ${body.mediaType}s reached. Delete an existing ${body.mediaType} before uploading another.` }, { status: 409 });
     const publicId = `apex/${body.mediaType}s/${randomUUID()}-${(body.name || "media").replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 80)}`;
-    return NextResponse.json(createUploadSignature(publicId, Math.floor(Date.now() / 1000), body.mediaType));
+    return NextResponse.json(createUploadSignature(publicId, Math.floor(Date.now() / 1000)));
   } catch (error) {
     console.error("Cloudinary signature failed", error);
     return NextResponse.json({ error: "Cloudinary is not configured." }, { status: 503 });
