@@ -24,12 +24,13 @@ export async function POST(request: Request) {
     const limit = body.mediaType === "image" ? MAX_IMAGES : MAX_VIDEOS;
     if ((count ?? 0) >= limit) { await deleteCloudinaryAsset(body.publicId, body.mediaType); return NextResponse.json({ error: `Maximum number of ${body.mediaType}s reached. Delete an existing ${body.mediaType} before uploading another.` }, { status: 409 }); }
     const asset = await getCloudinaryAsset(body.publicId, body.mediaType);
+    if (body.mediaType === "image" && asset.format !== "webp") { await deleteCloudinaryAsset(body.publicId, body.mediaType); return NextResponse.json({ error: "Cloudinary did not convert the image to WebP." }, { status: 502 }); }
     const maxBytes = body.mediaType === "image" ? MAX_IMAGE_BYTES : MAX_VIDEO_BYTES;
     if (asset.bytes > maxBytes) { await deleteCloudinaryAsset(body.publicId, body.mediaType); return NextResponse.json({ error: `The uploaded ${body.mediaType} exceeds the size limit.` }, { status: 400 }); }
     const safeStem = (body.name || body.originalName).replace(/\.[^.]+$/, "").replace(/[^a-zA-Z0-9_-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "").slice(0, 80) || "media";
     const extension = body.mediaType === "image" ? "webp" : asset.format || "mp4";
     const fileName = `${safeStem}.${extension}`;
-    const publicUrl = asset.secure_url.replace("/upload/", "/upload/f_auto,q_auto/");
+    const publicUrl = asset.secure_url.replace("/upload/", body.mediaType === "image" ? "/upload/q_auto/" : "/upload/f_auto,q_auto/");
     const { data, error } = await supabase.from("media").insert({ file_name: fileName, original_file_name: body.originalName, media_type: body.mediaType, storage_path: `${CLOUDINARY_PREFIX}${body.publicId}`, public_url: publicUrl, file_size: asset.bytes, mime_type: body.mediaType === "image" ? "image/webp" : `video/${asset.format || "mp4"}` }).select("*").single();
     if (error || !data) { await deleteCloudinaryAsset(body.publicId, body.mediaType); return NextResponse.json({ error: "Media metadata could not be saved." }, { status: 500 }); }
      revalidatePath("/", "page");
