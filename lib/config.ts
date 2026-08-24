@@ -6,9 +6,18 @@ const publicSchema = z.object({
 });
 
 const serverSchema = publicSchema.extend({
+  CLOUDINARY_CLOUD_NAME: z.string().min(1).optional(),
+  CLOUDINARY_API_KEY: z.string().min(1).optional(),
+  CLOUDINARY_API_SECRET: z.string().min(1).optional(),
   NOTIFICATION_EMAIL: z.string().email().optional(),
   RESEND_API_KEY: z.string().min(1).optional(),
   RESEND_FROM_EMAIL: z.string().min(1).optional(),
+});
+
+const cloudinarySchema = z.object({
+  CLOUDINARY_CLOUD_NAME: z.string().min(1),
+  CLOUDINARY_API_KEY: z.string().min(1),
+  CLOUDINARY_API_SECRET: z.string().min(1),
 });
 
 function parse<T extends z.ZodType>(schema: T) {
@@ -27,6 +36,11 @@ export function getPublicEnv() {
 
 export function getServerEnv() {
   return parse(serverSchema);
+}
+
+export function getCloudinaryEnv() {
+  const result = cloudinarySchema.safeParse(process.env);
+  return result.success ? result.data : null;
 }
 
 export function requireServerEnv() {
