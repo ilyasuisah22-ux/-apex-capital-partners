@@ -27,6 +27,7 @@ export async function POST(request: Request) {
     const maxBytes = body.mediaType === "image" ? MAX_IMAGE_BYTES : MAX_VIDEO_BYTES;
     if (asset.bytes > maxBytes) { await deleteCloudinaryAsset(body.publicId, body.mediaType); return NextResponse.json({ error: `The uploaded ${body.mediaType} exceeds the size limit.` }, { status: 400 }); }
     const safeStem = (body.name || body.originalName).replace(/\.[^.]+$/, "").replace(/[^a-zA-Z0-9_-]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "").slice(0, 80) || "media";
+    if (body.mediaType === "image" && asset.format !== "webp") { await deleteCloudinaryAsset(body.publicId, body.mediaType); return NextResponse.json({ error: "Cloudinary did not convert this image to WebP." }, { status: 502 }); }
     const extension = asset.format || (body.mediaType === "image" ? "jpg" : "mp4");
     const fileName = `${safeStem}.${extension}`;
     const publicUrl = asset.secure_url.replace("/upload/", body.mediaType === "image" ? "/upload/f_webp,q_auto/" : "/upload/f_auto,q_auto/");

@@ -10,12 +10,13 @@ function configuredCloudinary() {
   return cloudinary;
 }
 
-export function createUploadSignature(publicId: string, timestamp: number) {
+export function createUploadSignature(publicId: string, timestamp: number, mediaType: "image" | "video") {
   const client = configuredCloudinary();
   const env = getCloudinaryEnv();
   if (!env) throw new Error("Cloudinary is not configured.");
-  const signature = client.utils.api_sign_request({ public_id: publicId, timestamp }, env.CLOUDINARY_API_SECRET);
-  return { signature, timestamp, publicId, cloudName: env.CLOUDINARY_CLOUD_NAME, apiKey: env.CLOUDINARY_API_KEY };
+  const parameters = mediaType === "image" ? { format: "webp", public_id: publicId, timestamp } : { public_id: publicId, timestamp };
+  const signature = client.utils.api_sign_request(parameters, env.CLOUDINARY_API_SECRET);
+  return { signature, timestamp, publicId, format: mediaType === "image" ? "webp" : undefined, cloudName: env.CLOUDINARY_CLOUD_NAME, apiKey: env.CLOUDINARY_API_KEY };
 }
 
 export async function getCloudinaryAsset(publicId: string, resourceType: "image" | "video") {
