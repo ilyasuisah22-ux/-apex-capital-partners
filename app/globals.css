@@ -141,6 +141,74 @@ h1 { font-size:clamp(52px,8vw,114px); } h2 { font-size:clamp(40px,5.5vw,76px); }
 :root[data-theme="dark"] .admin-error { border-color:#c98d7f; background:rgba(139,77,66,.28); color:#e6bcb0; }
 :root[data-theme="dark"] .disclaimer-section, :root[data-theme="dark"] .disclaimer-section .text-ink\/60 { color:var(--ink); }
 
+/* Marriott opportunity page and featured cards. */
+.admin-inquiry-category { display:inline-block; margin-left:10px; padding:2px 8px; border:1px solid var(--brass); background:rgba(185,150,90,.12); color:var(--brass); font-size:9px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+:root[data-theme="dark"] .admin-inquiry-category { background:rgba(185,150,90,.16); color:var(--brass); }
+.featured-opportunity { padding:120px 0; }
+.featured-opportunity-card { padding:56px; border:1px solid var(--line-light); background:var(--paper); color:var(--ink); position:relative; overflow:hidden; }
+.featured-opportunity-card::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background:var(--brass); }
+.featured-eyebrow { color:#8a6f3d; }
+.featured-opportunity-card h2 { font-size:clamp(34px,4.5vw,64px); color:var(--ink); }
+.featured-opportunity-card .featured-subtitle { margin:16px 0 22px; color:#8a6f3d; font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; }
+.featured-opportunity-card .lead { font-size:clamp(20px,1.8vw,28px); color:var(--ink); }
+.featured-opportunity-card .featured-meta { display:flex; flex-wrap:wrap; gap:8px 26px; margin:26px 0 32px; padding-top:22px; border-top:1px solid var(--line-light); }
+.featured-opportunity-card .featured-meta span { color:rgba(7,16,19,.62); font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
+.marriott-hero-subtitle { margin:20px 0 30px; color:var(--brass); font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; }
+.marriott-page { padding:0 0 140px; }
+.marriott-section { padding:120px 0; }
+.marriott-section h2 { font-size:clamp(38px,5vw,68px); }
+.marriott-panel { padding:44px; border:1px solid var(--line-light); background:var(--paper); color:var(--ink); }
+.marriott-panel h3 { margin:0 0 14px; color:var(--ink); }
+.marriott-panel>p { color:rgba(7,16,19,.68); }
+.marriott-panel>p:last-child { margin-bottom:0; }
+.marriott-panel .marriott-note { color:rgba(7,16,19,.5); font-size:13px; }
+.marriott-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.marriott-card { padding:32px; border:1px solid var(--line-light); background:var(--paper); color:var(--ink); display:grid; gap:14px; }
+.marriott-card h3 { font-size:26px; color:var(--ink); }
+.marriott-card p { margin:0; color:rgba(7,16,19,.66); font-size:14px; }
+.marriott-process { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line-light); border:1px solid var(--line-light); }
+.marriott-process article { padding:30px; background:var(--paper); color:var(--ink); display:grid; gap:14px; align-content:start; }
+.marriott-process .step-num { color:#8a6f3d; font-size:12px; font-weight:800; letter-spacing:.14em; }
+.marriott-process h3 { font-size:22px; color:var(--ink); }
+.marriott-process p { margin:0; color:rgba(7,16,19,.66); font-size:13px; }
+.marriott-form-wrap { display:grid; grid-template-columns:1.1fr .9fr; gap:60px; align-items:start; }
+.marriott-side { display:grid; gap:20px; align-content:start; }
+.marriott-form-wrap form { display:grid; gap:18px; }
+.marriott-form-wrap .eyebrow { color:#8a6f3d; }
+.marriott-form-wrap .form-heading>p:last-child { color:rgba(7,16,19,.55); }
+.marriott-form-wrap .form-grid label { display:grid; align-content:start; gap:8px; color:rgba(7,16,19,.62); font-size:12px; font-weight:600; }
+.marriott-form-wrap .form-grid input,.marriott-form-wrap .form-grid select,.marriott-form-wrap .form-grid textarea { width:100%; padding:12px 4px; border:0; border-bottom:1px solid var(--line-light); border-radius:0; background:transparent; color:var(--ink); font-size:15px; outline:none; }
+.marriott-form-wrap .form-grid select { background:var(--paper); }
+.marriott-form-wrap .form-grid textarea { resize:vertical; }
+.marriott-form-wrap .form-grid input:focus,.marriott-form-wrap .form-grid select:focus,.marriott-form-wrap .form-grid textarea:focus { border-color:var(--brass); }
+.marriott-form-wrap .field-error { color:#a4452f; }
+.marriott-form-wrap .form-note { color:rgba(7,16,19,.5); }
+.marriott-form-wrap .submit-error { margin-top:25px; padding:16px; border-left:2px solid #b9664f; background:rgba(185,102,79,.12); color:#8c3f2b; font-size:12px; }
+.marriott-form-wrap .submit-error p { margin:0 0 10px; }
+.marriott-form-wrap .submit-error .reset-button { padding:4px 0; border:0; border-bottom:1px solid currentColor; background:transparent; color:inherit; cursor:pointer; font-size:10px; }
+.marriott-form-state { display:grid; gap:16px; }
+.marriott-form-state .eyebrow { color:#8a6f3d; margin-bottom:0; }
+.marriott-form-state h2 { font-size:clamp(32px,4vw,50px); }
+.marriott-form-state>p { color:rgba(7,16,19,.68); }
+.marriott-form-state .button-row { margin-top:6px; }
+.marriott-form-state .reset-button { justify-self:start; padding:4px 0; border:0; border-bottom:1px solid currentColor; background:transparent; color:rgba(7,16,19,.6); cursor:pointer; font-size:10px; }
+.marriott-info-box { padding:32px; border:1px solid var(--line-light); background:var(--paper); color:var(--ink); display:grid; gap:14px; }
+.marriott-info-box h3 { font-size:22px; color:var(--ink); }
+.marriott-info-box p { margin:0; color:rgba(7,16,19,.66); font-size:14px; line-height:1.6; }
+.marriott-info-box-tight { margin-top:28px; }
+.marriott-cta-band { padding:120px 0; background:var(--ink); color:var(--paper); text-align:center; }
+.marriott-cta-band h2 { color:var(--paper); }
+.marriott-cta-band p { color:rgba(248,245,237,.66); max-width:640px; margin:16px auto 0; }
+.marriott-cta-row { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:32px; }
+.marriott-cta-row .button { min-width:220px; }
+.marriott-disclaimer { padding:20px 0 70px; }
+.marriott-disclaimer-inner { max-width:900px; padding-top:40px; border-top:1px solid var(--line-light); }
+:root[data-theme="dark"] .marriott-disclaimer-inner { border-top-color:rgba(248,245,237,.16); }
+
+@media (max-width:1024px) { .marriott-process { grid-template-columns:repeat(2,1fr); }.marriott-grid { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:900px) { .featured-opportunity-card { padding:36px; }.marriott-grid { grid-template-columns:1fr; }.marriott-form-wrap { grid-template-columns:1fr; gap:32px; } }
+@media (max-width:600px) { .marriott-section { padding:75px 0; }.marriott-page { padding:0 0 90px; }.marriott-process { grid-template-columns:1fr; }.marriott-cta-band { padding:75px 0; }.marriott-panel { padding:26px; }.marriott-info-box { padding:26px; }.marriott-cta-row { flex-direction:column; }.marriott-cta-row .button { width:100%; min-width:0; } }
+
 .media-lightbox-open { overflow:hidden; }
 .home-image-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:1px; background:var(--line-dark); border:1px solid var(--line-dark); }
 .home-image-tile { position:relative; grid-column:span 4; min-width:0; aspect-ratio:16/11; overflow:hidden; background:var(--navy); }

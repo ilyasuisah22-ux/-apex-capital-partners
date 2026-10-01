@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { services } from "@/lib/constants";
 
-const serviceNames = [...services.map((item) => item.title), "Other"] as const;
+const serviceNames = [...services.map((item) => item.title), "Marriott Public Benefit Opportunity", "Other"] as const;
 
 export const inquirySchema = z.object({
   name: z.string().trim().min(2).max(100),
@@ -11,6 +11,7 @@ export const inquirySchema = z.object({
   service: z.enum(serviceNames),
   applicants: z.coerce.number().int().min(1).max(100),
   message: z.string().trim().min(20).max(5000),
+  category: z.enum(["Marriott Opportunity", "General"]).default("General"),
   website: z.string().max(0).optional(),
 });
 

@@ -144,3 +144,72 @@ export const mediaRecords: readonly MediaRecord[] = [
 export function whatsappUrl(number: string = company.whatsapp[0], message = "Hello Apex Capital Partners, I would like to discuss your advisory services.") {
   return `https://wa.me/${number.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
 }
+
+export const marriottOpportunity = {
+  slug: "marriott-opportunity",
+  title: "St. Kitts & Nevis Citizenship by Investment",
+  eyebrow: "Marriott Public Benefit Opportunity",
+  summary: "Explore a government-approved Public Benefit investment opportunity associated with the Royal St. Kitts Beach Resort, together with the citizenship and hospitality benefits available under the applicable programme and project terms.",
+  resortName: "Royal St. Kitts Beach Resort",
+  programme: "St. Kitts & Nevis Citizenship by Investment Programme",
+  benefitUnit: "St. Kitts Marriott",
+  hero: {
+    eyebrow: "St. Kitts & Nevis",
+    index: "06",
+    title: "Citizenship by Investment",
+    subtitle: "Marriott Public Benefit Opportunity",
+    whatsappMessage: "Hello Apex Capital Partners, I would like to discuss the St. Kitts & Nevis Marriott Public Benefit Opportunity.",
+    supportingText: "Explore a government-approved Public Benefit investment opportunity associated with the Royal St. Kitts Beach Resort, together with the citizenship and hospitality benefits available under the applicable programme and project terms.",
+    primaryCta: "Request a Private Consultation",
+    secondaryCta: "Chat on WhatsApp",
+  },
+  featured: {
+    eyebrow: "Featured Investment Opportunity",
+    title: "Royal St. Kitts Beach Resort",
+    subtitle: "Marriott Public Benefit Opportunity",
+    description: "Explore a St. Kitts & Nevis Public Benefit investment opportunity associated with the Royal St. Kitts Beach Resort, commonly referred to as the St. Kitts Marriott.",
+    buttonLabel: "Explore Opportunity",
+  },
+  benefits: [
+    { title: "Marriott Resort Accommodation", description: "Hospitality benefits may be available as part of the applicable project offer. Contact Apex Capital Partners for the current benefit structure and eligibility requirements." },
+    { title: "Hospitality Benefits", description: "Potential hospitality benefits associated with the applicable project offer. Specific benefits are subject to current programme and project terms." },
+    { title: "Caribbean Resort Experience", description: "A resort experience located in the Caribbean, associated with the applicable Public Benefit investment project." },
+    { title: "Global Travel & Lifestyle", description: "International lifestyle considerations associated with citizenship by investment, subject to each destination's current entry and visa requirements." },
+    { title: "Family Opportunity", description: "Consideration of family circumstances and dependants as part of a broader citizenship by investment planning discussion." },
+  ],
+  citizenshipBenefits: [
+    { title: "Global Mobility", description: "Access to a wide range of international destinations, subject to each destination's current entry and visa requirements." },
+    { title: "Family Opportunities", description: "Consideration of family circumstances and dependants within a broader citizenship by investment planning discussion." },
+    { title: "International Lifestyle", description: "International lifestyle considerations associated with citizenship by investment planning." },
+    { title: "Caribbean Connection", description: "A connection to the Caribbean through the St. Kitts & Nevis citizenship by investment framework." },
+    { title: "Long-Term Citizenship Planning", description: "Long-term planning considerations associated with citizenship by investment, subject to current programme requirements." },
+    { title: "No General Residency Requirement", description: "The applicable programme may not require general residency as part of its standard requirements. Confirm current terms with qualified professional advice." },
+  ],
+  processSteps: [
+    { step: "01", title: "Initial Consultation", description: "Discuss the applicant's objectives and circumstances with Apex Capital Partners." },
+    { step: "02", title: "Eligibility Review", description: "Review eligibility and the documentation required for the applicable programme." },
+    { step: "03", title: "Application Preparation", description: "Prepare the required application documentation for submission." },
+    { step: "04", title: "Government Review & Due Diligence", description: "Complete the applicable review and due-diligence process with the relevant authorities." },
+    { step: "05", title: "Investment & Required Fees", description: "Complete the applicable investment and government or project requirements." },
+    { step: "06", title: "Citizenship Completion", description: "Upon approval and completion of the applicable requirements, complete the citizenship documentation process." },
+  ],
+  investmentInterestOptions: [
+    "Marriott Public Benefit Opportunity",
+    "Citizenship by Investment",
+    "Property Investment",
+    "Travel Assistance",
+    "Tourist Visa",
+    "Hotel Accommodation",
+    "Other",
+  ],
+  familySizeOptions: [
+    "Single Applicant",
+    "Couple",
+    "Family of 3",
+    "Family of 4",
+    "Other",
+  ],
+  importantProgrammeInfo: "Programme requirements, investment amounts, fees, processing times, travel privileges and project benefits may change. Applicants should confirm current requirements and obtain appropriate professional, legal, tax or financial advice before making decisions.",
+  disclaimer: "Important Notice: Information presented on this page is provided for general informational purposes only and does not constitute legal, tax, financial or immigration advice. Programme requirements, investment amounts, fees, processing times, travel privileges and project benefits may change. Eligibility and approval are subject to applicable laws, regulations, due-diligence requirements and decisions of the relevant authorities. Prospective applicants should obtain appropriate professional advice and confirm current programme and project terms before making an investment.",
+  officialSourceUrl: "https://www.citizenshipbyinvestment-sk.com/",
+} as const;

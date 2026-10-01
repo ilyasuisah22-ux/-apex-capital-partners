@@ -66,6 +66,13 @@ create table if not exists public.inquiries (
   updated_at timestamptz not null default now()
 );
 
+-- Idempotent migration: add a category column for inquiry source tracking.
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'inquiries' and column_name = 'category') then
+    alter table public.inquiries add column category text not null default 'General';
+  end if;
+end $$;
+
 create index if not exists media_type_created_at_idx on public.media (media_type, created_at desc);
 create index if not exists inquiries_status_created_at_idx on public.inquiries (status, created_at desc);
 
