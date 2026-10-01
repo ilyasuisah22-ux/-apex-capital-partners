@@ -18,7 +18,14 @@ export async function POST(request: Request) {
     if (!getPublicEnv()) return NextResponse.json({ error: "Inquiry service is not configured yet." }, { status: 503 });
     const supabase = await createSupabaseServerClient();
     if (!supabase) return NextResponse.json({ error: "Inquiry service is not configured yet." }, { status: 503 });
-    const { error } = await supabase.from("inquiries").insert({ full_name: parsed.data.name, email: parsed.data.email, phone: parsed.data.phone, country: parsed.data.country, service: parsed.data.service, number_of_applicants: parsed.data.applicants, message: parsed.data.message, category: parsed.data.category });
+    const inquiry = { full_name: parsed.data.name, email: parsed.data.email, phone: parsed.data.phone, country: parsed.data.country, service: parsed.data.service, number_of_applicants: parsed.data.applicants, message: parsed.data.message };
+    let { error } = await supabase.from("inquiries").insert({ ...inquiry, category: parsed.data.category });
+    if (error && /category/i.test(error.message)) {
+      // The optional source column has not been applied to this database yet.
+      // Save the inquiry anyway so no submission is lost, then apply supabase/schema.sql.
+      console.warn("Inquiry source column is unavailable. Apply supabase/schema.sql; saving the inquiry without its category.");
+      ({ error } = await supabase.from("inquiries").insert(inquiry));
+    }
     if (error) return NextResponse.json({ error: "We could not save your inquiry. Please try again." }, { status: 500 });
     recentSubmissions.set(ip, Date.now());
     try { const notification = await sendInquiryNotification(parsed.data); if (!notification.sent) console.warn("Inquiry saved without email notification:", notification.reason); } catch (emailError) { console.error("Inquiry email notification failed", emailError); }
