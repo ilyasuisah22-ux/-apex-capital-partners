@@ -205,6 +205,47 @@ h1 { font-size:clamp(52px,8vw,114px); } h2 { font-size:clamp(40px,5.5vw,76px); }
 .marriott-disclaimer-inner { max-width:900px; padding-top:40px; border-top:1px solid var(--line-light); }
 :root[data-theme="dark"] .marriott-disclaimer-inner { border-top-color:rgba(248,245,237,.16); }
 
+/* Dark mode counterpart for the light "paper" panels on the homepage featured
+   opportunity card and the Marriott opportunity page. */
+:root[data-theme="dark"] .featured-opportunity-card,
+:root[data-theme="dark"] .marriott-card,
+:root[data-theme="dark"] .marriott-info-box,
+:root[data-theme="dark"] .marriott-panel,
+:root[data-theme="dark"] .marriott-process article { background:#111d24; border-color:rgba(248,245,237,.16); color:var(--paper); }
+:root[data-theme="dark"] .featured-eyebrow,
+:root[data-theme="dark"] .marriott-process .step-num,
+:root[data-theme="dark"] .marriott-form-wrap .eyebrow,
+:root[data-theme="dark"] .marriott-form-state .eyebrow { color:var(--brass); }
+:root[data-theme="dark"] .featured-opportunity-card h2,
+:root[data-theme="dark"] .marriott-card h3,
+:root[data-theme="dark"] .marriott-info-box h3,
+:root[data-theme="dark"] .marriott-panel h3,
+:root[data-theme="dark"] .marriott-process h3,
+:root[data-theme="dark"] .marriott-form-state h2 { color:var(--paper); }
+:root[data-theme="dark"] .featured-opportunity-card .featured-subtitle { color:var(--brass); }
+:root[data-theme="dark"] .featured-opportunity-card .lead { color:rgba(248,245,237,.84); }
+:root[data-theme="dark"] .featured-opportunity-card .featured-meta { border-top-color:rgba(248,245,237,.16); }
+:root[data-theme="dark"] .featured-opportunity-card .featured-meta span { color:rgba(248,245,237,.62); }
+:root[data-theme="dark"] .marriott-card p,
+:root[data-theme="dark"] .marriott-info-box p,
+:root[data-theme="dark"] .marriott-panel>p,
+:root[data-theme="dark"] .marriott-process p { color:rgba(248,245,237,.7); }
+:root[data-theme="dark"] .marriott-panel .marriott-note { color:rgba(248,245,237,.55); }
+:root[data-theme="dark"] .marriott-process { background:rgba(248,245,237,.16); border-color:rgba(248,245,237,.16); }
+:root[data-theme="dark"] .marriott-form-wrap .form-heading>p:last-child { color:rgba(248,245,237,.6); }
+:root[data-theme="dark"] .marriott-form-wrap .form-grid label { color:rgba(248,245,237,.7); }
+:root[data-theme="dark"] .marriott-form-wrap .form-grid input,
+:root[data-theme="dark"] .marriott-form-wrap .form-grid select,
+:root[data-theme="dark"] .marriott-form-wrap .form-grid textarea { color:var(--paper); border-bottom-color:rgba(248,245,237,.32); }
+:root[data-theme="dark"] .marriott-form-wrap .form-grid select { background:#0c1519; }
+:root[data-theme="dark"] .marriott-form-wrap .form-grid select option { background:#0c1519; color:var(--paper); }
+:root[data-theme="dark"] .marriott-form-wrap .form-note { color:rgba(248,245,237,.5); }
+:root[data-theme="dark"] .marriott-form-wrap .field-error { color:#e6bcb0; }
+:root[data-theme="dark"] .marriott-form-wrap .submit-error { border-left-color:#c98d7f; background:rgba(139,77,66,.28); color:#e6bcb0; }
+:root[data-theme="dark"] .marriott-form-state>p { color:rgba(248,245,237,.72); }
+:root[data-theme="dark"] .marriott-form-state .reset-button { color:rgba(248,245,237,.6); }
+:root[data-theme="dark"] .marriott-info-box .text-link { color:var(--paper); }
+
 @media (max-width:1024px) { .marriott-process { grid-template-columns:repeat(2,1fr); }.marriott-grid { grid-template-columns:repeat(2,1fr); } }
 @media (max-width:900px) { .featured-opportunity-card { padding:36px; }.marriott-grid { grid-template-columns:1fr; }.marriott-form-wrap { grid-template-columns:1fr; gap:32px; } }
 @media (max-width:600px) { .marriott-section { padding:75px 0; }.marriott-page { padding:0 0 90px; }.marriott-process { grid-template-columns:1fr; }.marriott-cta-band { padding:75px 0; }.marriott-panel { padding:26px; }.marriott-info-box { padding:26px; }.marriott-cta-row { flex-direction:column; }.marriott-cta-row .button { width:100%; min-width:0; } }
