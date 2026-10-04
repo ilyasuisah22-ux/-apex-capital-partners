@@ -189,7 +189,110 @@ h1 { font-size:clamp(52px,8vw,114px); } h2 { font-size:clamp(40px,5.5vw,76px); }
 .marriott-form-state { display:grid; gap:16px; }
 .marriott-form-state .eyebrow { color:#8a6f3d; margin-bottom:0; }
 .marriott-form-state h2 { font-size:clamp(32px,4vw,50px); }
+/* Phase 2 light-mode sync: invert the fixed dark hero, banner and CTA bands to
+   the light sand-and-brass palette so every public surface follows the active
+   theme. Dark mode keeps its current styling. */
+:root[data-theme="light"] .dark-section { background:var(--ivory); color:var(--ink); }
+:root[data-theme="light"] .text-ivory { color:var(--ink); }
+:root[data-theme="light"] .home-hero { background-image:linear-gradient(90deg,rgba(7,16,19,.055) 1px,transparent 1px),linear-gradient(rgba(7,16,19,.045) 1px,transparent 1px); color:var(--ink); }
+:root[data-theme="light"] .home-hero::before { background:var(--paper); border-left-color:var(--line-light); }
+:root[data-theme="light"] .hero-copy h1 { color:var(--ink); }
+:root[data-theme="light"] .hero-copy h1 em { color:#806638; }
+:root[data-theme="light"] .hero-copy>p { color:rgba(7,16,19,.68); }
+:root[data-theme="light"] .hero-annotation p { color:var(--ink); }
+:root[data-theme="light"] .hero-copy .eyebrow { color:#806638; }
+:root[data-theme="light"] .hero-foot { border-top-color:var(--line-light); color:rgba(7,16,19,.55); }
+:root[data-theme="light"] .mobility-section { background-color:var(--ivory); background-image:none; }
+:root[data-theme="light"] .mobility-section h2 { color:var(--ink); }
+:root[data-theme="light"] .mobility-grid>div:first-child>p { color:var(--ink); }
+:root[data-theme="light"] .page-hero .eyebrow { color:#806638; }
+:root[data-theme="light"] .contact-cta .eyebrow,:root[data-theme="light"] .mobility-section .eyebrow,:root[data-theme="light"] .travel-table .eyebrow,:root[data-theme="light"] .scope-band .eyebrow,:root[data-theme="light"] .media-preview .eyebrow { color:#806638; }
 .marriott-form-state>p { color:rgba(7,16,19,.68); }
+:root[data-theme="light"] .atlas::before,:root[data-theme="light"] .atlas-ring { border-color:rgba(7,16,19,.2); }
+:root[data-theme="light"] .atlas { border-color:rgba(127,102,55,.5); }
+:root[data-theme="light"] .atlas::after { border-color:rgba(127,102,55,.32); }
+:root[data-theme="light"] .atlas-label strong { color:var(--ink); }
+:root[data-theme="light"] .atlas-label small { color:#806638; }
+:root[data-theme="light"] .mobility-note p { color:rgba(7,16,19,.66); }
+:root[data-theme="light"] .mobility-note span { color:#806638; }
+:root[data-theme="light"] .page-hero { background:var(--paper); border-bottom-color:var(--line-light); color:var(--ink); }
+:root[data-theme="light"] .page-hero h1 { color:var(--ink); }
+:root[data-theme="light"] .page-hero-aside p { color:rgba(7,16,19,.66); }
+:root[data-theme="light"] .hero-index { color:#806638; }
+:root[data-theme="light"] .travel-table { background:var(--ivory); }
+:root[data-theme="light"] .region-list { border-top-color:var(--line-light); }
+:root[data-theme="light"] .region-list article { border-bottom-color:var(--line-light); }
+:root[data-theme="light"] .region-list article>span { color:#806638; }
+:root[data-theme="light"] .region-list p { color:rgba(7,16,19,.66); }
+:root[data-theme="light"] .region-list strong { color:#806638; }
+:root[data-theme="light"] .contact-page { background:var(--ivory); }
+:root[data-theme="light"] .contact-grid aside .eyebrow { color:#806638; }
+:root[data-theme="light"] .contact-grid address span { color:rgba(7,16,19,.66); }
+:root[data-theme="light"] .contact-grid address a { color:var(--ink); }
+:root[data-theme="light"] .whatsapp-list { border-top-color:var(--line-light); }
+:root[data-theme="light"] .whatsapp-list h3 { color:#806638; }
+:root[data-theme="light"] .whatsapp-list a { color:var(--ink); }
+:root[data-theme="light"] .contact-note { color:rgba(7,16,19,.66); }
+:root[data-theme="light"] .inquiry-form { border-left-color:var(--line-light); }
+:root[data-theme="light"] .form-heading>p:last-child { color:rgba(7,16,19,.62); }
+:root[data-theme="light"] .form-grid label { color:rgba(7,16,19,.62); }
+:root[data-theme="light"] .form-grid input,:root[data-theme="light"] .form-grid select,:root[data-theme="light"] .form-grid textarea { color:var(--ink); border-bottom-color:rgba(7,16,19,.32); }
+:root[data-theme="light"] .contact-page .form-grid select { background:var(--ivory); }
+:root[data-theme="light"] .contact-page .form-grid select option { color:var(--ink); background:var(--ivory); }
+:root[data-theme="light"] .form-state { border-left-color:var(--line-light); }
+:root[data-theme="light"] .form-state>p { color:rgba(7,16,19,.68); }
+:root[data-theme="light"] .field-error { color:#8b4d42; }
+:root[data-theme="light"] .form-note { color:rgba(7,16,19,.5); }
+:root[data-theme="light"] .submit-error { border-left-color:#8b4d42; background:rgba(139,77,66,.12); color:#8b4d42; }
+:root[data-theme="light"] .submit-error strong,:root[data-theme="light"] .submit-error button { color:#6f3427; }
+:root[data-theme="light"] .submit-error p { color:#8b4d42; }
+:root[data-theme="light"] .contact-cta,:root[data-theme="light"] .marriott-cta-band { background:var(--paper); }
+:root[data-theme="light"] .contact-cta h2,:root[data-theme="light"] .marriott-cta-band h2 { color:var(--ink); }
+:root[data-theme="light"] .contact-cta .cta-grid>div:last-child p,:root[data-theme="light"] .marriott-cta-band p { color:rgba(7,16,19,.66); }
+:root[data-theme="light"] .contact-cta .text-link { color:var(--ink); }
+:root[data-theme="light"] .marriott-cta-band .button.outline { border-color:rgba(7,16,19,.35); color:var(--ink); }
+:root[data-theme="light"] .site-footer { background:var(--paper); color:var(--ink); border-top-color:var(--line-light); }
+:root[data-theme="light"] .footer-brand .brand { color:var(--ink); }
+:root[data-theme="light"] .footer-brand p { color:rgba(7,16,19,.66); }
+:root[data-theme="light"] .footer-main h2 { color:#806638; }
+:root[data-theme="light"] .footer-main a,:root[data-theme="light"] .footer-main span { color:rgba(7,16,19,.7); }
+:root[data-theme="light"] .footer-main a:hover { color:#806638; }
+:root[data-theme="light"] .footer-main .muted { color:rgba(7,16,19,.5); }
+:root[data-theme="light"] .footer-legal { border-top-color:var(--line-light); color:rgba(7,16,19,.55); }
+:root[data-theme="light"] .floating-whatsapp { color:var(--ink); }
+:root[data-theme="light"] .video-gallery { background:var(--line-light); border-color:var(--line-light); }
+:root[data-theme="light"] .video-card { background:var(--paper); }
+:root[data-theme="light"] .video-card>p:last-child,:root[data-theme="light"] .media-card>p:last-child { color:rgba(7,16,19,.66); }
+:root[data-theme="light"] .media-page>.shell>.video-gallery { color:var(--ink); }
+:root[data-theme="light"] .media-empty { border-top-color:var(--line-light); border-bottom-color:var(--line-light); color:rgba(7,16,19,.62); }
+:root[data-theme="light"] .mobile-menu { background:var(--ivory); color:var(--ink); }
+:root[data-theme="light"] .mobile-menu-top { border-bottom-color:var(--line-light); }
+:root[data-theme="light"] .mobile-menu nav a { border-bottom-color:var(--line-light); color:var(--ink); }
+:root[data-theme="light"] .mobile-menu nav a span { color:#806638; }
+:root[data-theme="light"] .mobile-menu>p { color:rgba(7,16,19,.66); }
+:root[data-theme="light"] .icon-button.inverse,.mobile-menu .icon-button { color:var(--ink); border-color:var(--line-light); }
+:root[data-theme="light"] .home-lightbox { background:rgba(243,239,230,.96); }
+:root[data-theme="light"] .home-lightbox figure>img { border-color:var(--line-light); box-shadow:0 30px 80px rgba(7,16,19,.18); }
+:root[data-theme="light"] .home-lightbox figcaption { color:rgba(7,16,19,.7); }
+:root[data-theme="light"] .home-lightbox figcaption strong { color:var(--ink); }
+:root[data-theme="light"] .home-lightbox-close,:root[data-theme="light"] .home-lightbox-nav { border-color:rgba(7,16,19,.2); background:rgba(7,16,19,.04); color:var(--ink); }
+:root[data-theme="light"] .atlas-axis { background:rgba(127,102,55,.35); }
+:root[data-theme="light"] .atlas-dot { box-shadow:0 0 0 5px rgba(127,102,55,.15); }
+:root[data-theme="light"] .atlas-label strong,:root[data-theme="light"] .atlas-label small { color:inherit; }
+:root[data-theme="light"] .mobile-menu nav a,.mobile-menu .icon-button { color:var(--ink); }
+:root[data-theme="light"] .hero-annotation span { color:#806638; }
+:root[data-theme="light"] .hero-foot span:last-child { color:#806638; }
+:root[data-theme="light"] .globe::after { color:#806638; }
+:root[data-theme="light"] .quiet-link { color:var(--ink); }
+:root[data-theme="light"] .button.outline { border-color:rgba(7,16,19,.4); color:var(--ink); }
+:root[data-theme="light"] .contact-grid aside h2,:root[data-theme="light"] .cta-grid h2 { color:var(--ink); }
+:root[data-theme="light"] .contact-cta .eyebrow { color:#806638; }
+:root[data-theme="light"] .contact-grid address { color:var(--ink); }
+:root[data-theme="light"] .quiet-link { color:var(--ink); }
+:root[data-theme="light"] .button.outline { border-color:rgba(7,16,19,.4); color:var(--ink); }
+:root[data-theme="light"] .contact-grid aside h2,:root[data-theme="light"] .cta-grid h2,:root[data-theme="light"] .contact-cta h2 { color:var(--ink); }
+:root[data-theme="light"] .contact-cta .eyebrow { color:#806638; }
+:root[data-theme="light"] .contact-grid address { color:var(--ink); }
 .marriott-form-state .button-row { margin-top:6px; }
 .marriott-form-state .reset-button { justify-self:start; padding:4px 0; border:0; border-bottom:1px solid currentColor; background:transparent; color:rgba(7,16,19,.6); cursor:pointer; font-size:10px; }
 .marriott-info-box { padding:32px; border:1px solid var(--line-light); background:var(--paper); color:var(--ink); display:grid; gap:14px; }
