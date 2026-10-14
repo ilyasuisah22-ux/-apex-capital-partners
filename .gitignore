@@ -6,3 +6,6 @@ out
 npm-debug.log*
 *.tsbuildinfo
 phase2-admin-login.png
+/dist/
+.vinext/
+.cloudflare/

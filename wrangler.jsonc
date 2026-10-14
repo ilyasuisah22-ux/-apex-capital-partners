@@ -1,0 +1,16 @@
+{
+  "name": "apex-capital-partners",
+  "compatibility_date": "2026-10-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": ".cloudflare/output/v0/workers/default/bundle/ssr/index.js",
+  "assets": {
+    "directory": ".cloudflare/output/v0/workers/default/assets",
+    "not_found_handling": "none"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "VINEXT_KV_CACHE",
+      "id": "e4cf4bd256764841b4a813b78e25070d"
+    }
+  ]
+}

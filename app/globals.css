@@ -139,11 +139,58 @@ h1 { font-size:clamp(52px,8vw,114px); } h2 { font-size:clamp(40px,5.5vw,76px); }
 :root[data-theme="dark"] .admin-inquiry-contact a { color:var(--paper); }
 :root[data-theme="dark"] .admin-notice { color:var(--brass); }
 :root[data-theme="dark"] .admin-error { border-color:#c98d7f; background:rgba(139,77,66,.28); color:#e6bcb0; }
+:root[data-theme="dark"] .account-form { border-color:rgba(248,245,237,.16); background:#111d24; }
+:root[data-theme="dark"] .account-form h2 { color:var(--paper); }
+:root[data-theme="dark"] .account-form .account-current { color:rgba(248,245,237,.55); }
+:root[data-theme="dark"] .account-form label { color:rgba(248,245,237,.62); }
+:root[data-theme="dark"] .account-form input { border-color:rgba(248,245,237,.16); background:#0c1519; color:var(--paper); }
+:root[data-theme="dark"] .account-form input:focus { border-color:var(--brass); }
+:root[data-theme="dark"] .account-form small { color:rgba(248,245,237,.48); }
+:root[data-theme="dark"] .account-back-link { color:var(--brass); }
+:root[data-theme="dark"] .account-back-link:hover { color:var(--paper); }
+:root[data-theme="dark"] .admin-success { border-color:#79643e; background:rgba(185,150,90,.18); color:#e6d9a8; }
+:root[data-theme="dark"] .admin-confirm { border-color:#c98d7f; background:rgba(139,77,66,.22); color:#e6bcb0; }
+:root[data-theme="dark"] .admin-confirm strong { color:var(--paper); }
+:root[data-theme="dark"] .admin-filter-chip { border-color:rgba(248,245,237,.16); background:#111d24; color:var(--paper); }
+:root[data-theme="dark"] .admin-filter-chip:hover { border-color:var(--brass); }
+:root[data-theme="dark"] .admin-filter-chip.is-active { color:var(--ink); }
+:root[data-theme="dark"] .admin-search input { border-color:rgba(248,245,237,.16); background:#0c1519; color:var(--paper); }
+:root[data-theme="dark"] .admin-search .admin-search-icon { color:rgba(248,245,237,.45); }
+:root[data-theme="dark"] .admin-inquiry-actions .admin-button-quiet { border-color:rgba(248,245,237,.16); color:var(--paper); }
 :root[data-theme="dark"] .disclaimer-section, :root[data-theme="dark"] .disclaimer-section .text-ink\/60 { color:var(--ink); }
 
 /* Marriott opportunity page and featured cards. */
 .admin-inquiry-category { display:inline-block; margin-left:10px; padding:2px 8px; border:1px solid var(--brass); background:rgba(185,150,90,.12); color:var(--brass); font-size:9px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
 :root[data-theme="dark"] .admin-inquiry-category { background:rgba(185,150,90,.16); color:var(--brass); }
+/* Account settings and recovery pages. */
+.account-settings-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px; }
+.account-form { display:grid; gap:18px; padding:28px; }
+.account-form h2 { margin:0 0 4px; font-family:var(--font-serif),Georgia,serif; font-size:30px; font-weight:400; }
+.account-form .account-current { margin:0 0 18px; color:rgba(7,16,19,.55); font-size:12px; }
+.account-form label { display:grid; gap:8px; margin-top:18px; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(7,16,19,.62); }
+.account-form input { width:100%; padding:12px 4px; border:0; border-bottom:1px solid var(--line-light); background:transparent; color:var(--ink); font-size:15px; outline:none; }
+.account-form input:focus { border-color:var(--brass); }
+.account-form small { color:rgba(7,16,19,.5); font-size:12px; }
+.account-form .admin-button { margin-top:8px; }
+.account-back-link { display:inline-block; margin-top:18px; color:var(--brass); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+.account-back-link:hover { color:var(--ink); }
+.admin-success { margin:0 0 24px; padding:14px 16px; border:1px solid #79643e; background:rgba(121,100,62,.12); color:#5a4722; font-size:12px; }
+.admin-confirm { margin:24px 0; padding:18px 20px; border:1px solid #a66b5f; background:rgba(139,77,66,.08); color:#8b4d42; font-size:13px; }
+.admin-confirm strong { display:block; margin-bottom:6px; }
+.admin-confirm-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+.admin-filter-bar { display:flex; flex-wrap:wrap; gap:10px 14px; align-items:center; margin-bottom:24px; }
+.admin-filter-chips { display:flex; flex-wrap:wrap; gap:8px; }
+.admin-filter-chip { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border:1px solid var(--line-light); background:var(--paper); color:var(--ink); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:border-color .15s, background .15s, color .15s; }
+.admin-filter-chip:hover { border-color:var(--brass); }
+.admin-filter-chip.is-active { border-color:var(--brass); background:var(--brass); color:var(--ink); }
+.admin-search { position:relative; flex:1; min-width:220px; max-width:360px; }
+.admin-search input { width:100%; padding:10px 12px 10px 36px; border:1px solid var(--line-light); background:var(--paper); color:var(--ink); font-size:14px; border-radius:0; outline:none; }
+.admin-search input:focus { border-color:var(--brass); }
+.admin-search .admin-search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:rgba(7,16,19,.45); pointer-events:none; }
+.admin-inquiry-actions { display:flex; gap:8px; margin-top:14px; }
+.admin-empty-row { padding:28px; text-align:center; color:rgba(7,16,19,.55); }
+.admin-empty-row .admin-empty { margin:0; }
+@media (max-width:600px) { .admin-page { padding:48px 0 90px; } .admin-page-heading { flex-direction:column; gap:16px; } .admin-form-wrap { grid-template-columns:1fr; } .account-form { padding:20px; } .admin-filter-bar { flex-direction:column; align-items:stretch; } .admin-search { max-width:none; } }
 .featured-opportunity { padding:120px 0; }
 .featured-opportunity-card { padding:56px; border:1px solid var(--line-light); background:var(--paper); color:var(--ink); position:relative; overflow:hidden; }
 .featured-opportunity-card::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background:var(--brass); }

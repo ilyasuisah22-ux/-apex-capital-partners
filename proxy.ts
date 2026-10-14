@@ -3,10 +3,12 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getPublicEnv } from "@/lib/config";
 
 export async function proxy(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  const publicAdminAuthRoute = pathname === "/admin/login" || pathname === "/admin/forgot-password" || pathname === "/admin/reset-password";
   if (!request.nextUrl.pathname.startsWith("/admin")) return NextResponse.next();
   const env = getPublicEnv();
   if (!env) {
-    if (request.nextUrl.pathname === "/admin/login") return NextResponse.next();
+    if (publicAdminAuthRoute) return NextResponse.next();
     return NextResponse.redirect(new URL("/admin/login?setup=required", request.url));
   }
   const response = NextResponse.next({ request });
@@ -14,7 +16,7 @@ export async function proxy(request: NextRequest) {
     cookies: { getAll: () => request.cookies.getAll(), setAll: (cookiesToSet) => cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options)) },
   });
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user && request.nextUrl.pathname !== "/admin/login") return NextResponse.redirect(new URL(`/admin/login?next=${encodeURIComponent(request.nextUrl.pathname)}`, request.url));
+  if (!user && !publicAdminAuthRoute) return NextResponse.redirect(new URL(`/admin/login?next=${encodeURIComponent(request.nextUrl.pathname)}`, request.url));
   return response;
 }
 

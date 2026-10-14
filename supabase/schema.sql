@@ -132,6 +132,11 @@ drop policy if exists "Authenticated admins can view inquiries" on public.inquir
 create policy "Authenticated admins can view inquiries" on public.inquiries for select to authenticated using (public.is_admin());
 drop policy if exists "Authenticated admins can update inquiries" on public.inquiries;
 create policy "Authenticated admins can update inquiries" on public.inquiries for update to authenticated using (public.is_admin()) with check (public.is_admin());
+-- Only authenticated administrators may delete inquiries. Mirrors the update
+-- and media-delete policies. Adds a restriction where none existed before.
+drop policy if exists "Authenticated admins can delete inquiries" on public.inquiries;
+create policy "Authenticated admins can delete inquiries" on public.inquiries
+  for delete to authenticated using (public.is_admin());
 
 -- Keep the Auth user list private; admin access is controlled by Supabase Auth.
 revoke all on table public.media from anon;
